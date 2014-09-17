@@ -23,12 +23,12 @@ public class InsertToDoAdapter extends ArrayAdapter<ToDoItem> {
 		this.objects = objects;
 	}
 	
-/*	@Override
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent){
-		TextView list_item_with_checkbox = (TextView) parent.findViewById(R.id.list_item_with_checkbox);
+		convertView = (TextView) parent.findViewById(R.id.list_item_with_checkbox);
+		return convertView;
 		
-		
-	}*/
+	}
 	
 
 }

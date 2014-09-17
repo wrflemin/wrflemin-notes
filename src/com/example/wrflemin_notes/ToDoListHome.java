@@ -24,13 +24,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
-//import android.widget.Toast;
+import android.widget.ListView;
 
 public class ToDoListHome extends ActionBarActivity {
 	//initializes the empty todo list
 	//TODO initialize the old values from storage
 	protected ToDoList activeToDoList;
 	protected CheckedTextView checkedTextView;
+	protected InsertToDoAdapter checkboxAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,15 @@ public class ToDoListHome extends ActionBarActivity {
 		setContentView(R.layout.activity_to_do_list_home);
 		//TODO initialize the old values from storage
 		activeToDoList = new ToDoList();
+		//Testing
+		//ToDoItem toDo = new ToDoItem("help people",false);
+		//activeToDoList.add(toDo);
+		//Testing
+		checkboxAdapter = new InsertToDoAdapter(this,
+		        R.id.toDoListView, activeToDoList.getToDoList() );
+		ListView listView = (ListView) findViewById(R.id.toDoListView);
+		listView.setAdapter(checkboxAdapter);
+		
 	}
 
 	@Override
@@ -66,6 +76,8 @@ public class ToDoListHome extends ActionBarActivity {
 		newToDo = new ToDoItem(toDoText, false);
 		activeToDoList.add(newToDo);
 		//TODO create an adapter in order to insert into the listview
+		
+		
 	}
 	
 	public void checkBox(View view){

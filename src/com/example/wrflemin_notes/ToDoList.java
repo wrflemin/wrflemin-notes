@@ -17,5 +17,9 @@ public class ToDoList {
 	public void add(ToDoItem toDoItem){
 		toDoItemList.add(toDoItem);
 	}
+	
+	public ArrayList<ToDoItem> getToDoList(){
+			return toDoItemList;
+	}
 
 }
