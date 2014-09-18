@@ -39,10 +39,6 @@ public class ToDoListHome extends ActionBarActivity {
 		setContentView(R.layout.activity_to_do_list_home);
 		//TODO initialize the old values from storage
 		activeToDoList = new ToDoList();
-		//Testing
-		//ToDoItem toDo = new ToDoItem("help people",false);
-		//activeToDoList.add(toDo);
-		//Testing
 		checkboxAdapter = new InsertToDoAdapter(this,
 		        R.id.toDoListView, activeToDoList.getToDoList() );
 		ListView listView = (ListView) findViewById(R.id.toDoListView);
@@ -73,10 +69,12 @@ public class ToDoListHome extends ActionBarActivity {
 		ToDoItem newToDo;
 		EditText todo_textbox = (EditText) findViewById(R.id.todo_textbox);
 		String toDoText = todo_textbox.getText().toString();
-		newToDo = new ToDoItem(toDoText, false);
-		activeToDoList.add(newToDo);
-		//TODO create an adapter in order to insert into the listview
-		
+		if (toDoText != ""){
+			todo_textbox.getText().clear();
+			newToDo = new ToDoItem(toDoText, false);
+			activeToDoList.add(newToDo);
+			checkboxAdapter.notifyDataSetChanged();
+		}		
 		
 	}
 	
