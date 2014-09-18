@@ -18,6 +18,7 @@
 package com.example.wrflemin_notes;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ToDoListHome extends ActionBarActivity {
 	//initializes the empty todo list
@@ -80,6 +82,14 @@ public class ToDoListHome extends ActionBarActivity {
 	
 	public void checkBox(View view){
 		checkedTextView = (CheckedTextView) view;
-		checkedTextView.toggle();
+		
+		if (checkedTextView.isChecked()){
+			checkedTextView.setChecked(false);
+			activeToDoList.decreaseCheckedCount();
+		}
+		else{
+			checkedTextView.setChecked(true);
+			activeToDoList.increaseCheckedCount();
+		}
 	}
 }

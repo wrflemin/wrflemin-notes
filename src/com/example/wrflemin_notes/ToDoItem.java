@@ -2,17 +2,17 @@ package com.example.wrflemin_notes;
 
 public class ToDoItem {
 	private String toDoText;
-	private Boolean checked;
+	//private Boolean checked;
 	
 	public ToDoItem(String toDoText, boolean checked) {
 		super();
 		this.toDoText = toDoText;
-		this.checked = checked;
+		//this.checked = checked;
 	}
 	
-	public Boolean checkedStatus(){
+	/*public Boolean checkedStatus(){
 		return checked;
-	}
+	}*/
 	
 	@Override
 	public String toString(){
