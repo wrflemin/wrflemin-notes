@@ -20,6 +20,7 @@ package ca.ualberta.wrflemin_notes;
 import com.example.wrflemin_notes.R;
 
 import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.ActionMode;
@@ -27,11 +28,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView.MultiChoiceModeListener;
+import android.view.View.OnClickListener;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+/*Toast code
+ *Context context = getApplicationContext();
+ *CharSequence text = "Hello toast!";
+ *int duration = Toast.LENGTH_SHORT;
+ *Toast toast = Toast.makeText(context, text, duration);
+ *toast.show();*/
+
 
 public class ToDoListHome extends ActionBarActivity {
 	//initializes the empty todo list
@@ -39,6 +48,9 @@ public class ToDoListHome extends ActionBarActivity {
 	protected ToDoList activeToDoList;
 	protected CheckedTextView checkedTextView;
 	protected InsertToDoAdapter checkboxAdapter;
+	protected Activity activity = this;
+	protected ActionMode mActionMode;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,62 +60,64 @@ public class ToDoListHome extends ActionBarActivity {
 		activeToDoList = new ToDoList();
 		checkboxAdapter = new InsertToDoAdapter(this,
 		        R.id.toDoListView, activeToDoList.getToDoList() );
+		
+		
 		ListView listView = (ListView) findViewById(R.id.toDoListView);
 		listView.setAdapter(checkboxAdapter);
 		
 		//Taken from http://developer.android.com/guide/topics/ui/menus.html#CAB
 		
-		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-		listView.setMultiChoiceModeListener(new MultiChoiceModeListener() {
+		
+		final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
+		    // Called when the action mode is created; startActionMode() was called
+		    @Override
+		    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+		        // Inflate a menu resource providing context menu items
+		        MenuInflater inflater = mode.getMenuInflater();
+		        inflater.inflate(R.menu.context_menu, menu);
+		        return true;
+		    }
 
+		    // Called each time the action mode is shown. Always called after onCreateActionMode, but
+		    // may be called multiple times if the mode is invalidated.
+		    @Override
+		    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		        return false; // Return false if nothing is done
+		    }
+
+		    // Called when the user selects a contextual menu item
 		    @Override
 		    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		         //Respond to clicks on the actions in the CAB
 		        switch (item.getItemId()) {
-		            case R.id.menu_delete:
-		                deleteSelectedItems();
+		            case R.id.delete:
+		                //shareCurrentItem();
 		                mode.finish(); // Action picked, so close the CAB
 		                return true;
 		            default:
 		                return false;
 		        }
-		
 		    }
 
-		    private void deleteSelectedItems() {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-		    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-		        // Inflate the menu for the CAB
-		        MenuInflater inflater = mode.getMenuInflater();
-		        //you need to make a new menu in xml
-		        inflater.inflate(R.menu.option_menu_for_longclick, menu);
-		        return true;
-		    }
-
+		    // Called when the user exits the action mode
 		    @Override
 		    public void onDestroyActionMode(ActionMode mode) {
-		        // Here you can make any necessary updates to the activity when
-		        // the CAB is removed. By default, selected items are deselected/unchecked.
+		        mActionMode = null;
 		    }
+		};
 
-		    @Override
-		    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		        // Here you can perform updates to the CAB due to
-		        // an invalidate() request
-		        return false;
+		listView.setOnLongClickListener(new View.OnLongClickListener() {
+		    // Called when the user long-clicks on someView
+		    public boolean onLongClick(View view) {
+		        if (mActionMode != null) {
+		            return false;
+		        }
+
+		        // Start the CAB using the ActionMode.Callback defined above
+		        mActionMode = activity.startActionMode(mActionModeCallback);
+		        view.setSelected(true);
+		        return true;
 		    }
-
-			@Override
-			public void onItemCheckedStateChanged(ActionMode arg0, int arg1,
-					long arg2, boolean arg3) {
-				// TODO Auto-generated method stub
-				
-			}
 		});
 		//end borrowed code
 		
@@ -132,13 +146,17 @@ public class ToDoListHome extends ActionBarActivity {
 		ToDoItem newToDo;
 		EditText todo_textbox = (EditText) findViewById(R.id.todo_textbox);
 		String toDoText = todo_textbox.getText().toString();
-		if (toDoText != ""){
+		if (!toDoText.isEmpty()){
 			todo_textbox.getText().clear();
 			newToDo = new ToDoItem(toDoText, false);
 			activeToDoList.add(newToDo);
 			checkboxAdapter.notifyDataSetChanged();
 		}		
 		
+	}
+	
+	public void getFocus(View view){
+		view.requestFocus();
 	}
 	
 	public void checkBox(View view){

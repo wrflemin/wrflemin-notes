@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ca.ualberta.wrflemin_notes.ToDoListHome" >
+    tools:context="ca.ualberta.wrflemin_notes.ToDoListHome">
 
      	<EditText
    	    android:id="@+id/todo_textbox"
@@ -30,28 +30,18 @@
    	    android:text="@string/button_add" 
    	    android:onClick="createToDo"/>
    	   	
-<!--   	<TextView
-   	    android:id="@android:id/empty"
-   	    android:layout_width="wrap_content"
-   	    android:layout_height="wrap_content"
-   	    android:layout_alignEnd="@+id/AddButton"
-   	    android:layout_alignLeft="@+id/todo_textbox"
-   	    android:layout_alignRight="@+id/AddButton"
-   	    android:layout_centerVertical = "true"
-   	    android:text="@string/list_empty_message"
-   	    android:textSize="25sp" />
-
--->
    	<ListView
    	    android:id="@+id/toDoListView"
    	    android:layout_width="match_parent"
-   	    android:layout_height="wrap_content"
-   	    android:layout_alignLeft="@+id/todo_textbox"
-   	    android:layout_alignStart="@+id/todo_textbox"
-   	    android:layout_alignRight="@+id/AddButton"
+   	    android:layout_height="fill_parent"
    	    android:layout_alignEnd="@+id/AddButton"
-   	    android:layout_below="@+id/todo_textbox" >
-
+   	    android:layout_alignLeft="@+id/todo_textbox"
+   	    android:layout_alignRight="@+id/AddButton"
+   	    android:layout_alignStart="@+id/todo_textbox"
+   	    android:layout_below="@+id/todo_textbox"
+   	    android:focusable="true"
+   	    android:focusableInTouchMode="true">
+   	    <requestFocus /> 
    	</ListView>
    	
     
