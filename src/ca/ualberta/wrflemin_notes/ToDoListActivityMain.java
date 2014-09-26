@@ -19,7 +19,7 @@ package ca.ualberta.wrflemin_notes;
 
 import com.example.wrflemin_notes.R;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +28,7 @@ import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 
-public class ToDoListActivityMain extends ActionBarActivity {
+public class ToDoListActivityMain extends Activity {
 	//initializes the empty todo list
 	//TODO initialize the old values from storage
 	private ToDoList activeToDoList;
