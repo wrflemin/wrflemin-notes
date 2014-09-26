@@ -8,5 +8,6 @@
     <string name = "todo_textbox_hint">Enter A To Do Item</string>
     <string name = "list_empty_message">No to do items yet . . . </string>
     <string name = "Delete">Delete</string>
+    <string name="activeListSizeKey">activeToDoListSize</string>
 
 </resources>
